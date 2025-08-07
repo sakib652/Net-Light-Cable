@@ -485,6 +485,15 @@
     z-index: 1;
 }
 
+.category .category-item .category-content .category-content-inner a {
+    color: #16243d;
+    transition: 0.5s;
+}
+
+.category .category-item:hover .category-content .category-content-inner a {
+    color: var(--bs-white);
+}
+
 .category .category-item:hover .category-img::after {
     height: 100%;
 }

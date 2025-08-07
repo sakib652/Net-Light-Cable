@@ -15,7 +15,7 @@
                     </div>
                     <div class="category-content text-center py-3">
                         <div class="category-content-inner">
-                            <a href="#" class="d-inline-block h5 mb-0">{{ $cat->name }}</a>
+                            <a href="#" class="d-inline-block h5 mb-3">{{ $cat->name }}</a>
                         </div>
                     </div>
                 </div>
