@@ -25,8 +25,11 @@
                         <thead class="text-center bg-light">
                             <tr>
                                 <th>Sl</th>
-                                <th>Name</th>
-                                <th>Description</th>
+                                <th>Organization</th>
+                                <th>Area</th>
+                                <th>Owner</th>
+                                <th>Phone</th>
+                                <th>Address</th>
                                 @if (auth()->user()->type == 'admin')
                                     <th>Status</th>
                                     <th>Action</th>
@@ -37,59 +40,29 @@
                             @foreach ($dealers as $key => $dealer)
                                 <tr class="text-center">
                                     <td class="text-center align-middle">{{ $key + 1 }}</td>
-                                    <td class="text-center align-middle">{{ $dealer->name }}</td>
-                                    <td class="text-center align-middle">
-                                        <a href="#" data-bs-toggle="modal"
-                                            data-bs-target="#descriptionModal{{ $dealer->id }}">
-                                            View Description
-                                        </a>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="descriptionModal{{ $dealer->id }}" tabindex="-1"
-                                            aria-labelledby="descriptionModalLabel{{ $dealer->id }}" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title"
-                                                            id="descriptionModalLabel{{ $dealer->id }}">
-                                                            Description of {{ $dealer->name }}
-                                                        </h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body text-start">
-                                                        {!! $dealer->description !!}
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-sm btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <td class="text-center align-middle">{{ $dealer->org_name }}</td>
+                                    <td class="text-center align-middle">{{ $dealer->area ? $dealer->area->name : 'N/A' }}
                                     </td>
+                                    <td class="text-center align-middle">{{ $dealer->owner_name ?? '-' }}</td>
+                                    <td class="text-center align-middle">{{ $dealer->phone ?? '-' }}</td>
+                                    <td class="text-center align-middle">{{ $dealer->address ?? '-' }}</td>
 
                                     @if (auth()->user()->type == 'admin')
                                         <td class="text-center align-middle" style="vertical-align: middle;">
-                                            <div class="d-flex justify-content-center align-items-center"
-                                                style="height: 100%;">
-                                                <form action="{{ route('dealer.updateStatus', $dealer->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <input type="hidden" name="status"
-                                                        value="{{ $dealer->status == 'a' ? 'd' : 'a' }}">
-                                                    <button type="submit"
-                                                        class="btn btn-sm {{ $dealer->status == 'a' ? 'btn-success' : 'btn-danger' }} d-flex align-items-center justify-content-center"
-                                                        style="padding: 4px 12px; font-size: 12px;">
-                                                        @if ($dealer->status == 'a')
-                                                            <i class="fas fa-check-circle me-1"></i> Active
-                                                        @else
-                                                            <i class="fas fa-ban me-1"></i> Deactive
-                                                        @endif
-                                                    </button>
-                                                </form>
-                                            </div>
+                                            <form action="{{ route('dealer.updateStatus', $dealer->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="status"
+                                                    value="{{ $dealer->status == 'a' ? 'd' : 'a' }}">
+                                                <button type="submit"
+                                                    class="btn btn-sm {{ $dealer->status == 'a' ? 'btn-success' : 'btn-danger' }}">
+                                                    @if ($dealer->status == 'a')
+                                                        <i class="fas fa-check-circle me-1"></i> Active
+                                                    @else
+                                                        <i class="fas fa-ban me-1"></i> Deactive
+                                                    @endif
+                                                </button>
+                                            </form>
                                         </td>
 
                                         <td class="text-center align-middle">
@@ -114,17 +87,4 @@
             </div>
         </div>
     </main>
-
-    <script>
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                const imgElement = document.getElementById('imagePreview');
-                imgElement.src = reader.result;
-                imgElement.classList.remove('d-none');
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-    </script>
-
 @endsection

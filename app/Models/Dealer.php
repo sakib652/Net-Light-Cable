@@ -10,9 +10,17 @@ class Dealer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
+        'org_name',
+        'area_id',
+        'owner_name',
+        'phone',
+        'address',
         'ip_address',
         'status',
     ];
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
 }

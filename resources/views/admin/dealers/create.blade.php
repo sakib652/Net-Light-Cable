@@ -22,23 +22,61 @@
                         <form method="POST" action="{{ route('dealer.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <!-- Dealer Image -->
                                 <div class="form-group row mt-2">
-                                    <!-- Dealer Name -->
-                                    <label for="dealer_name" class="col-sm-1 col-form-label">Name</label>
+                                    <!-- Organization Name -->
+                                    <label for="org_name" class="col-sm-1 col-form-label">Org. Name</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control form-control-sm" id="dealer_name"
-                                            name="name" value="{{ old('name') }}" required>
-                                        @error('name')
+                                        <input type="text" class="form-control form-control-sm" id="org_name"
+                                            name="org_name" value="{{ old('org_name') }}" required>
+                                        @error('org_name')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
-                                    <!-- Description -->
-                                    <label for="description" class="col-sm-1 col-form-label">Description</label>
-                                    <div class="col-sm-7">
-                                        <textarea name="description" id="description" class="form-control form-control-sm" rows="4">{{ old('description') }}</textarea>
-                                        @error('description')
+                                    <!-- Area -->
+                                    <label for="area_id" class="col-sm-1 col-form-label">Area</label>
+                                    <div class="col-sm-3">
+                                        <select name="area_id" id="area_id" class="form-select form-select-sm">
+                                            <option value="">Select Area</option>
+                                            @foreach ($areas as $area)
+                                                <option value="{{ $area->id }}"
+                                                    {{ old('area_id') == $area->id ? 'selected' : '' }}>
+                                                    {{ $area->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('area_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Owner Name -->
+                                    <label for="owner_name" class="col-sm-1 col-form-label">Owner</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control form-control-sm" id="owner_name"
+                                            name="owner_name" value="{{ old('owner_name') }}">
+                                        @error('owner_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mt-3">
+                                    <!-- Phone -->
+                                    <label for="phone" class="col-sm-1 col-form-label">Phone</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control form-control-sm" id="phone"
+                                            name="phone" value="{{ old('phone') }}">
+                                        @error('phone')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Address -->
+                                    <label for="address" class="col-sm-1 col-form-label">Address</label>
+                                    <div class="col-sm-3">
+                                        <textarea class="form-control form-control-sm" id="address" name="address" rows="2">{{ old('address') }}</textarea>
+                                        @error('address')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -67,8 +105,11 @@
                         <thead class="text-center bg-light">
                             <tr>
                                 <th>Sl</th>
-                                <th>Name</th>
-                                <th>Description</th>
+                                <th>Organization</th>
+                                <th>Area</th>
+                                <th>Owner</th>
+                                <th>Phone</th>
+                                <th>Address</th>
                                 @if (auth()->user()->type == 'admin')
                                     <th>Status</th>
                                     <th>Action</th>
@@ -79,59 +120,29 @@
                             @foreach ($dealers as $key => $dealer)
                                 <tr class="text-center">
                                     <td class="text-center align-middle">{{ $key + 1 }}</td>
-                                    <td class="text-center align-middle">{{ $dealer->name }}</td>
-                                    <td class="text-center align-middle">
-                                        <a href="#" data-bs-toggle="modal"
-                                            data-bs-target="#descriptionModal{{ $dealer->id }}">
-                                            View Description
-                                        </a>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="descriptionModal{{ $dealer->id }}" tabindex="-1"
-                                            aria-labelledby="descriptionModalLabel{{ $dealer->id }}" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title"
-                                                            id="descriptionModalLabel{{ $dealer->id }}">
-                                                            Description of {{ $dealer->name }}
-                                                        </h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body text-start">
-                                                        {!! $dealer->description !!}
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-sm btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <td class="text-center align-middle">{{ $dealer->org_name }}</td>
+                                    <td class="text-center align-middle">{{ $dealer->area ? $dealer->area->name : 'N/A' }}
                                     </td>
+                                    <td class="text-center align-middle">{{ $dealer->owner_name ?? '-' }}</td>
+                                    <td class="text-center align-middle">{{ $dealer->phone ?? '-' }}</td>
+                                    <td class="text-center align-middle">{{ $dealer->address ?? '-' }}</td>
 
                                     @if (auth()->user()->type == 'admin')
                                         <td class="text-center align-middle" style="vertical-align: middle;">
-                                            <div class="d-flex justify-content-center align-items-center"
-                                                style="height: 100%;">
-                                                <form action="{{ route('dealer.updateStatus', $dealer->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <input type="hidden" name="status"
-                                                        value="{{ $dealer->status == 'a' ? 'd' : 'a' }}">
-                                                    <button type="submit"
-                                                        class="btn btn-sm {{ $dealer->status == 'a' ? 'btn-success' : 'btn-danger' }} d-flex align-items-center justify-content-center"
-                                                        style="padding: 4px 12px; font-size: 12px;">
-                                                        @if ($dealer->status == 'a')
-                                                            <i class="fas fa-check-circle me-1"></i> Active
-                                                        @else
-                                                            <i class="fas fa-ban me-1"></i> Deactive
-                                                        @endif
-                                                    </button>
-                                                </form>
-                                            </div>
+                                            <form action="{{ route('dealer.updateStatus', $dealer->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="status"
+                                                    value="{{ $dealer->status == 'a' ? 'd' : 'a' }}">
+                                                <button type="submit"
+                                                    class="btn btn-sm {{ $dealer->status == 'a' ? 'btn-success' : 'btn-danger' }}">
+                                                    @if ($dealer->status == 'a')
+                                                        <i class="fas fa-check-circle me-1"></i> Active
+                                                    @else
+                                                        <i class="fas fa-ban me-1"></i> Deactive
+                                                    @endif
+                                                </button>
+                                            </form>
                                         </td>
 
                                         <td class="text-center align-middle">
@@ -156,23 +167,4 @@
             </div>
         </div>
     </main>
-
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
-    <script>
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                const imgElement = document.getElementById('imagePreview');
-                imgElement.src = reader.result;
-                imgElement.classList.remove('d-none');
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-        ClassicEditor
-            .create(document.querySelector('#description'))
-            .catch(error => {
-                console.error('CKEditor Error:', error);
-            });
-    </script>
 @endsection

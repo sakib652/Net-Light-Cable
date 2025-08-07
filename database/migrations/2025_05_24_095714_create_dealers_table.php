@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('dealers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
+            $table->string('org_name');
+            $table->foreignId('area_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('owner_name')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('address')->nullable();
             $table->ipAddress('ip_address');
             $table->enum('status', ['a', 'd'])->default('a')->comment('a=active, d=deactive,');
             $table->timestamps();

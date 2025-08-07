@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\Area;
 use App\Models\Dealer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,11 +15,12 @@ class DealerController extends Controller
     public function index()
     {
         try {
-            $dealers = Dealer::latest()->get();
+            $dealers = Dealer::with('area')->latest()->get();
+
             return view('admin.dealers.index', compact('dealers'));
         } catch (\Exception $e) {
             Log::error('Error loading dealer index page: ' . $e->getMessage());
-            return redirect()->route('admin.dashboard')->with('error', 'An unexpected error occurred.');
+            return redirect()->route('dashboard')->with('error', 'An unexpected error occurred.');
         }
     }
 
@@ -38,7 +40,8 @@ class DealerController extends Controller
     {
         try {
             $dealers = Dealer::latest()->get();
-            return view('admin.dealers.create', compact('dealers'));
+            $areas = Area::orderBy('name')->get();
+            return view('admin.dealers.create', compact('dealers', 'areas'));
         } catch (\Exception $e) {
             Log::error('Error displaying create dealer page: ' . $e->getMessage());
             return back()->with('error', 'An error occurred while loading the form.');
@@ -49,15 +52,20 @@ class DealerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string|max:2000',
+            'org_name' => 'required|string|max:255',
+            'area_id' => 'nullable|exists:areas,id',
+            'owner_name' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:2000',
         ]);
 
         try {
-
             Dealer::create([
-                'name' => $request->name,
-                'description' => $request->description,
+                'org_name' => $request->org_name,
+                'area_id' => $request->area_id,
+                'owner_name' => $request->owner_name,
+                'phone' => $request->phone,
+                'address' => $request->address,
                 'ip_address' => $request->ip(),
                 'status' => 'a',
             ]);
@@ -73,8 +81,9 @@ class DealerController extends Controller
     {
         try {
             $dealer = Dealer::findOrFail($id);
+            $areas = Area::all();
 
-            return view('admin.dealers.edit', compact('dealer'));
+            return view('admin.dealers.edit', compact('dealer', 'areas'));
         } catch (\Exception $e) {
             Log::error('Error loading dealer edit form: ' . $e->getMessage());
             return back()->with('error', 'Could not load dealer.');
@@ -88,13 +97,19 @@ class DealerController extends Controller
             $dealer = Dealer::findOrFail($id);
 
             $request->validate([
-                'name' => 'required|string|max:255',
-                'description' => 'nullable|string|max:2000',
+                'org_name' => 'required|string|max:255',
+                'area_id' => 'nullable|exists:areas,id',
+                'owner_name' => 'nullable|string|max:255',
+                'phone' => 'nullable|string|max:20',
+                'address' => 'nullable|string|max:2000',
             ]);
 
             $dealer->update([
-                'name' => $request->name,
-                'description' => $request->description,
+                'org_name' => $request->org_name,
+                'area_id' => $request->area_id,
+                'owner_name' => $request->owner_name,
+                'phone' => $request->phone,
+                'address' => $request->address,
             ]);
 
             return redirect()->route('dealer.create')->with('success', 'Dealer updated successfully.');
