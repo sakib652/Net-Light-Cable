@@ -51,7 +51,7 @@
                 <span class="fa fa-bars"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav mx-0 mx-lg-auto">
+                <div class="navbar-nav ms-0 ms-lg-auto">
 
                     <a href="{{ route('home') }}"
                         class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
