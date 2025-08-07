@@ -27,7 +27,7 @@ class DealerController extends Controller
     public function view()
     {
         try {
-            $dealers = Dealer::where('status', 'a')->latest()->get();
+            $dealers = Dealer::with('area')->where('status', 'a')->latest()->get();
             return view('frontend.pages.dealers', compact('dealers'));
         } catch (\Exception $e) {
             Log::error('Error fetching dealers: ' . $e->getMessage());

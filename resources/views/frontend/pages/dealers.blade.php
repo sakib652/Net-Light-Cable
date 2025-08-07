@@ -13,47 +13,27 @@
 
     <!-- Dealers Start -->
     <div class="container-fluid team" style="padding: 15px 0 70px;">
-        <div class="container pb-3">
-            <div class="row g-4 justify-content-center">
-                <div class="col-12 col-md-8">
-                    <div class="mb-4">
-                        <label for="dealerSelect" class="form-label fw-bold">Select a Dealer</label>
-                        <select id="dealerSelect" class="form-select">
-                            <option selected disabled>-- Choose a Dealer --</option>
-                            @foreach ($dealers as $dealer)
-                                <option value="{{ $dealer->id }}">{{ $dealer->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div id="dealerDescriptionCard" class="card shadow-sm border-0 d-none" style="background: #f9f9f9;">
-                        <div class="card-body">
-                            <h5 id="dealerName" class="card-title text-primary fw-semibold text-center"></h5>
-                            <ol id="dealerDescription" class="card-text mt-2 text-dark ps-3 mt-4"></ol>
+        <div class="container">
+            <div class="row g-4 d-flex justify-content-center">
+                @forelse($dealers as $dealer)
+                    <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="border rounded p-4 h-100">
+                            <h5 class="mb-2 text-primary">{{ $dealer->org_name }}</h5>
+                            <p class="mb-1"><strong>Organization Name:</strong> {{ $dealer->org_name }}</p>
+                            <p class="mb-1"><strong>Owner:</strong> {{ $dealer->owner_name }}</p>
+                            <p class="mb-1"><strong>Phone:</strong> {{ $dealer->phone }}</p>
+                            <p class="mb-1"><strong>Address:</strong> {{ $dealer->address }}</p>
+                            @if ($dealer->area)
+                                <p class="mb-1"><strong>Area:</strong> {{ $dealer->area->name }}</p>
+                            @endif
                         </div>
                     </div>
-                </div>
+                @empty
+                    <div class="col-12">
+                        <p class="text-center">No dealers found.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
-
-    @push('scripts')
-        <script>
-            const dealers = @json($dealers);
-
-            document.getElementById('dealerSelect').addEventListener('change', function() {
-                const selectedId = this.value;
-                const dealer = dealers.find(d => d.id == selectedId);
-
-                if (dealer) {
-                    document.getElementById('dealerName').textContent = dealer.name;
-
-                    const descriptionContainer = document.getElementById('dealerDescription');
-                    descriptionContainer.innerHTML = dealer.description?.trim() || '<p>No description available.</p>';
-
-                    document.getElementById('dealerDescriptionCard').classList.remove('d-none');
-                }
-            });
-        </script>
-    @endpush
 @endsection
