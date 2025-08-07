@@ -232,7 +232,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: var(--bs-light);
+        /* background: var(--bs-light); */
         border-radius: 10px;
     }
 

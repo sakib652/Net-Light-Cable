@@ -39,7 +39,7 @@
 <!-- Topbar End -->
 
 <!-- Navbar & Hero Start -->
-<div class="container-fluid nav-bar px-0 px-lg-4 py-lg-0" style="padding: 10px !important;">
+<div class="container-fluid nav-bar px-0 px-lg-4 py-lg-0">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
             <a href="{{ route('home') }}" class="navbar-brand p-0">
