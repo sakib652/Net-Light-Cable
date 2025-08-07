@@ -12,14 +12,13 @@
     </div>
 
     <!-- Dealers Start -->
-    <div class="container-fluid team" style="padding: 15px 0 70px;">
+    <div class="container-fluid team" style="padding: 35px 0 70px;">
         <div class="container">
             <div class="row g-4 d-flex justify-content-center">
                 @forelse($dealers as $dealer)
                     <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="border rounded p-4 h-100">
-                            <h5 class="mb-2 text-primary">{{ $dealer->org_name }}</h5>
-                            <p class="mb-1"><strong>Organization Name:</strong> {{ $dealer->org_name }}</p>
+                        <div class="border border-primary rounded p-4 h-100">
+                            <h5 class="mb-2">{{ $dealer->org_name }}</h5>
                             <p class="mb-1"><strong>Owner:</strong> {{ $dealer->owner_name }}</p>
                             <p class="mb-1"><strong>Phone:</strong> {{ $dealer->phone }}</p>
                             <p class="mb-1"><strong>Address:</strong> {{ $dealer->address }}</p>
