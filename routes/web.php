@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\ClientController;
 use App\Http\Controllers\admin\DealerController;
 use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\admin\AboutUsController;
+use App\Http\Controllers\admin\AreaController;
 use App\Http\Controllers\admin\CounterController;
 use App\Http\Controllers\admin\GalleryController;
 use App\Http\Controllers\admin\MessageController;
@@ -119,6 +120,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/dealer/update/{id}', [DealerController::class, 'update'])->name('dealer.update');
     Route::put('/dealer/update-status/{id}', [DealerController::class, 'updateStatus'])->name('dealer.updateStatus');
     Route::delete('/dealer/destroy/{id}', [DealerController::class, 'destroy'])->name('dealer.destroy');
+
+    // Area
+    Route::get('/areas', [AreaController::class, 'index'])->name('areas.index');
+    Route::get('/areas/create', [AreaController::class, 'create'])->name('areas.create');
+    Route::post('/areas/store', [AreaController::class, 'store'])->name('areas.store');
+    Route::get('/areas/edit/{id}', [AreaController::class, 'edit'])->name('areas.edit');
+    Route::put('/areas/update/{id}', [AreaController::class, 'update'])->name('areas.update');
+    Route::put('/areas/update-status/{id}', [AreaController::class, 'updateStatus'])->name('areas.updateStatus');
+    Route::delete('/areas/destroy/{id}', [AreaController::class, 'destroy'])->name('areas.destroy');
+
 
     // About-us
     Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us.index');

@@ -25,6 +25,26 @@
                             href="{{ route('categories.index') }}">Category List</a>
                     </nav>
                 </div>
+
+                <!-- Areas -->
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAreas"
+                    aria-expanded="false" aria-controls="collapseAreas">
+                    <div class="sb-nav-link-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    Areas
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse {{ Request::routeIs('areas.*') ? 'show' : '' }}" id="collapseAreas"
+                    aria-labelledby="headingAreas" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        @if (auth()->user()->type == 'admin')
+                            <a class="nav-link {{ Request::routeIs('areas.create') ? 'active' : '' }}"
+                                href="{{ route('areas.create') }}">Create Area</a>
+                        @endif
+                        <a class="nav-link {{ Request::routeIs('areas.index') ? 'active' : '' }}"
+                            href="{{ route('areas.index') }}">Area List</a>
+                    </nav>
+                </div>
+
                 <!-- Web Content -->
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                     data-bs-target="#collapseWebContentMenu"
