@@ -11,24 +11,24 @@
                 <div class="d-flex flex-wrap">
                     <div class="pe-3">
                         <a href="mailto:example@gmail.com" class="text-muted small"><i
-                                class="fas fa-envelope text-primary me-2"></i>{{ $setting->company_email }}</a>
+                                class="fas fa-envelope text-success me-2"></i>{{ $setting->company_email }}</a>
                     </div>
-                    <div class="border-start border-primary ps-3">
+                    <div class="border-start border-success ps-3">
                         <a href="#" class="text-muted small"><i
-                                class="fa fa-phone text-primary me-2"></i>{{ $setting->hotline }}</a>
+                                class="fa fa-phone text-success me-2"></i>{{ $setting->hotline }}</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 text-center text-lg-end">
                 <div class="d-flex justify-content-end">
                     <div class="d-flex pe-3">
-                        <a class="btn p-0 text-primary me-3" href="{{ $setting->facebook_url }}"><i
+                        <a class="btn p-0 text-success me-3" href="{{ $setting->facebook_url }}"><i
                                 class="bi bi-facebook"></i></a>
-                        <a class="btn p-0 text-primary me-3" href="{{ $setting->twitter_url }}"><i
+                        <a class="btn p-0 text-success me-3" href="{{ $setting->twitter_url }}"><i
                                 class="bi bi-twitter-x"></i></a>
-                        <a class="btn p-0 text-primary me-3" href="{{ $setting->instagram_url }}"><i
+                        <a class="btn p-0 text-success me-3" href="{{ $setting->instagram_url }}"><i
                                 class="bi bi-instagram"></i></a>
-                        <a class="btn p-0 text-primary me-0" href="{{ $setting->linkedin_url }}"><i
+                        <a class="btn p-0 text-success me-0" href="{{ $setting->linkedin_url }}"><i
                                 class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
