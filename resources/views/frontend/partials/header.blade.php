@@ -72,8 +72,8 @@
                                 class="dropdown-item {{ request()->routeIs('front.team.view') && request('type') === 'management' ? 'active' : '' }}">
                                 Management
                             </a>
-                            <a href="{{ route('front.team.view', ['type' => 'team']) }}"
-                                class="dropdown-item {{ request()->routeIs('front.team.view') && request('type') === 'team' ? 'active' : '' }}">
+                            <a href="{{ route('front.team.view', ['type' => 'employee']) }}"
+                                class="dropdown-item {{ request()->routeIs('front.team.view') && request('type') === 'employee' ? 'active' : '' }}">
                                 Team
                             </a>
                         </div>

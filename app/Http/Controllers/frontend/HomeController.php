@@ -32,7 +32,7 @@ class HomeController extends Controller
             $certificate = Certificate::where('status', 'a')->latest()->take(4)->get();
             $galleryImages = Gallery::where('type', 'image')->where('status', 'a')->take(7)->get();
             $videos = Gallery::where('type', 'video')->where('status', 'a')->take(7)->get();
-            $management = Management::where('status', 'a')->take(4)->get();
+            $management = Management::where('status', 'a')->where('type', 'employee')->take(4)->get();
             return view('frontend.pages.home', compact('sliders', 'message', 'aboutUs', 'counters', 'management', 'category', 'categories', 'clients', 'certificate', 'products', 'galleryImages', 'videos'));
         } catch (\Exception $e) {
             Log::error('Error fetching sliders: ' . $e->getMessage());

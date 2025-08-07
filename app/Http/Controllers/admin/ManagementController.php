@@ -21,11 +21,21 @@ class ManagementController extends Controller
         }
     }
 
-    public function view()
+    public function view(Request $request)
     {
         try {
-            $management = Management::where('status', 'a')->latest()->get();
-            return view('frontend.pages.our-team', compact('management'));
+            $type = $request->query('type', 'management');
+
+            if (!in_array($type, ['management', 'employee'])) {
+                $type = 'management';
+            }
+
+            $management = Management::where('status', 'a')
+                ->where('type', $type)
+                ->latest()
+                ->get();
+
+            return view('frontend.pages.our-team', compact('management', 'type'));
         } catch (\Exception $e) {
             Log::error('Error fetching management: ' . $e->getMessage());
             return redirect()->route('home')->with('error', 'An error occurred while fetching the management. Please try again later.');

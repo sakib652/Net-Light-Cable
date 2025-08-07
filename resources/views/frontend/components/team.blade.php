@@ -42,7 +42,10 @@
         </div>
         {{-- View More Button --}}
         <div class="d-flex justify-content-end mt-4">
-            <a class="btn btn-primary btn-sm rounded-pill py-2 px-3" href="{{ route('front.team.view') }}">View More</a>
+            <a class="btn btn-primary btn-sm rounded-pill py-2 px-3"
+                href="{{ route('front.team.view', ['type' => 'employee']) }}">
+                View More
+            </a>
         </div>
     </div>
 </div>

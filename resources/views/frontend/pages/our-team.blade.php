@@ -3,18 +3,20 @@
 @section('content')
     <div class="container-fluid bg-breadcrumb">
         <div class="container text-center" style="max-width: 900px;">
-            <h4 class="text-white display-6 mt-2 wow fadeInDown" data-wow-delay="0.1s">Our Team</h4>
+            <h4 class="text-white display-6 mt-2 wow fadeInDown" data-wow-delay="0.1s">
+                {{ ucfirst($type) === 'Management' ? 'Our Management' : 'Our Team' }}
+            </h4>
             <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
-                <li class="breadcrumb-item mb-4"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active text-danger mb-4">Management</li>
+                <li class="breadcrumb-item mb-4"><a href="{{ route('home') }}">Home</a></li>
+                <li class="breadcrumb-item active text-danger mb-4">{{ ucfirst($type) }}</li>
             </ol>
         </div>
     </div>
 
     <section id="team" class="team section mt-4 mb-4" style="padding: 35px 0 85px;">
         <div class="container">
-            <div class="row gy-4">
-                @foreach ($management as $member)
+            <div class="row gy-4 d-flex justify-content-center">
+                @forelse ($management as $member)
                     <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.{{ $loop->iteration * 2 }}s">
                         <div class="team-item">
                             <div class="team-img">
@@ -47,7 +49,11 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-12 text-center">
+                        <p>No {{ $type }} members found.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
