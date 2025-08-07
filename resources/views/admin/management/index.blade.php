@@ -29,6 +29,7 @@
                                 <th>Designation</th>
                                 <th>Phone</th>
                                 <th>Email</th>
+                                <th>Type</th>
                                 <th>Social Links</th>
                                 @if (auth()->user()->type == 'admin')
                                     <th>Status</th>
@@ -48,6 +49,7 @@
                                     <td class="text-center align-middle">{{ $member->designation }}</td>
                                     <td class="text-center align-middle">{{ $member->phone ?? 'N/A' }}</td>
                                     <td class="text-center align-middle">{{ $member->email ?? 'N/A' }}</td>
+                                    <td class="text-center align-middle text-capitalize">{{ $member->type }}</td>
                                     <td class="text-center align-middle">
                                         @if (!$member->facebook_link && !$member->linkedin_link && !$member->twitter_link)
                                             N/A

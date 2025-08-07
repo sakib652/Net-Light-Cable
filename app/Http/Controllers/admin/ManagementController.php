@@ -52,6 +52,7 @@ class ManagementController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'phone' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:management,email',
+            'type' => 'required|in:management,employee',
             'facebook_link' => 'nullable|url',
             'linkedin_link' => 'nullable|url',
             'twitter_link' => 'nullable|url',
@@ -73,6 +74,7 @@ class ManagementController extends Controller
                 'image' => $imagePath,
                 'phone' => $request->phone,
                 'email' => $request->email,
+                'type' => $request->type,
                 'facebook_link' => $request->facebook_link,
                 'linkedin_link' => $request->linkedin_link,
                 'twitter_link' => $request->twitter_link,
@@ -109,6 +111,7 @@ class ManagementController extends Controller
                 'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'phone' => 'nullable|string|max:255',
                 'email' => 'nullable|email|unique:management,email,' . $id,
+                'type' => 'required|in:management,employee',
             ]);
 
             $imagePath = $management->image;
@@ -134,6 +137,7 @@ class ManagementController extends Controller
                 'image' => $imagePath,
                 'phone' => $request->phone,
                 'email' => $request->email,
+                'type' => $request->type,
                 'status' => $management->status,
                 'facebook_link' => $request->facebook_link,
                 'linkedin_link' => $request->linkedin_link,

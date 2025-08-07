@@ -18,11 +18,12 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->string('type')->nullable();
             $table->string('twitter_link')->nullable();
             $table->string('facebook_link')->nullable();
             $table->string('linkedin_link')->nullable();
             $table->ipAddress('ip_address');
-            $table->enum('status', ['a', 'd'])->default('a')->comment('a=active, d=deactive,'); 
+            $table->enum('status', ['a', 'd'])->default('a')->comment('a=active, d=deactive,');
             $table->timestamps();
         });
     }

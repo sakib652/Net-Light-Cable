@@ -116,6 +116,24 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+
+                                <label for="management_type" class="col-sm-1 col-form-label">Type</label>
+                                <div class="col-sm-3">
+                                    <select name="type" id="management_type" class="form-select form-select-sm"
+                                        required>
+                                        <option value="" disabled
+                                            {{ old('type', $management->type) ? '' : 'selected' }}>Select Type</option>
+                                        <option value="management"
+                                            {{ old('type', $management->type) == 'management' ? 'selected' : '' }}>
+                                            Management</option>
+                                        <option value="employee"
+                                            {{ old('type', $management->type) == 'employee' ? 'selected' : '' }}>Employee
+                                        </option>
+                                    </select>
+                                    @error('type')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
 
                             <hr class="my-2">

@@ -15,6 +15,7 @@ class Management extends Model
         'image',
         'phone',
         'email',
+        'type',
         'ip_address',
         'status',
         'twitter_link',

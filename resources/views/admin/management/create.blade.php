@@ -115,6 +115,23 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+
+                                    <!-- Type Dropdown -->
+                                    <label for="management_type" class="col-sm-1 col-form-label">Type</label>
+                                    <div class="col-sm-3">
+                                        <select name="type" id="management_type" class="form-select form-select-sm"
+                                            required>
+                                            <option value="" disabled {{ old('type') ? '' : 'selected' }}>Select
+                                                Type</option>
+                                            <option value="management"
+                                                {{ old('type') == 'management' ? 'selected' : '' }}>Management</option>
+                                            <option value="employee" {{ old('type') == 'employee' ? 'selected' : '' }}>
+                                                Employee</option>
+                                        </select>
+                                        @error('type')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
 
                                 <hr class="my-2">
@@ -145,6 +162,7 @@
                                 <th>Designation</th>
                                 <th>Phone</th>
                                 <th>Email</th>
+                                <th>Type</th>
                                 <th>Social Links</th>
                                 @if (auth()->user()->type == 'admin')
                                     <th>Status</th>
@@ -164,6 +182,7 @@
                                     <td class="text-center align-middle">{{ $member->designation }}</td>
                                     <td class="text-center align-middle">{{ $member->phone ?? 'N/A' }}</td>
                                     <td class="text-center align-middle">{{ $member->email ?? 'N/A' }}</td>
+                                    <td class="text-center align-middle text-capitalize">{{ $member->type }}</td>
                                     <td class="text-center align-middle">
                                         @if (!$member->facebook_link && !$member->linkedin_link && !$member->twitter_link)
                                             N/A
@@ -217,6 +236,15 @@
                                             <a href="{{ route('management.edit', $member->id) }}" class="btn btn-edit">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
+                                            {{-- <form action="{{ route('management.destroy', $member->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-delete"
+                                                    onclick="return confirm('Are you sure you want to delete this member?');">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form> --}}
                                             <form action="{{ route('management.destroy', $member->id) }}" method="POST"
                                                 class="d-inline delete-form">
                                                 @csrf
