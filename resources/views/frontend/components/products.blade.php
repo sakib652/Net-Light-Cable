@@ -161,9 +161,9 @@
         <!-- Tabs -->
         <div class="container">
             <ul id="productTabs">
-                <li><button class="active" data-client="all" type="button">All</button></li>
-                @foreach ($clients as $client)
-                    <li><button data-client="{{ $client->id }}" type="button">{{ $client->name }}</button></li>
+                <li><button class="active" data-category="all" type="button">All</button></li>
+                @foreach ($categories as $category)
+                    <li><button data-category="{{ $category->id }}" type="button">{{ $category->name }}</button></li>
                 @endforeach
             </ul>
         </div>
