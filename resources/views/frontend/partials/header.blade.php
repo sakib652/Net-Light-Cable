@@ -45,7 +45,7 @@
             <a href="{{ route('home') }}" class="navbar-brand p-0">
                 <img src="{{ asset('uploads/logo_and_icon/' . ($setting->company_logo ?? 'no-images/no-image.png')) }}"
                     alt="Logo">
-                <span class="ms-2 fw-bold">{{ $setting->company_name ?? 'Company Name' }}</span>
+                <span class="ms-2 fw-bold company-name">{{ $setting->company_name ?? 'Company Name' }}</span>
             </a>
             <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse">
