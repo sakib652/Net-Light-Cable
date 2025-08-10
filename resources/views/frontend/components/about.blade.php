@@ -11,7 +11,7 @@
                 <div class="about-item-content bg-white rounded p-5 h-100">
                     <h4 class="text-primary">About Our Company</h4>
                     <h1 class="display-4 mb-4">{{ $aboutUs->title }}</h1>
-                    <p style="text-align: justify;">{{ Str::limit($aboutUs->description, 360, '...') }}</p>
+                    <p style="text-align: justify;">{!! Str::limit($aboutUs->description, 600, '...') !!}</p>
                     <a class="btn btn-primary btn-sm rounded-pill py-2 px-3"
                         href="{{ route('front.about.view') }}">{{ $aboutUs->button_text }}</a>
                 </div>

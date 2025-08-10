@@ -54,7 +54,7 @@ class AboutUsController extends Controller
 
         $aboutUs->title = $request->input('title');
         $aboutUs->button_text = $request->input('button_text');
-        $aboutUs->description = strip_tags($request->input('description'));
+        $aboutUs->description = $request->input('description');
         $aboutUs->ip_address = $request->ip();
 
         if ($request->hasFile('image_path')) {
