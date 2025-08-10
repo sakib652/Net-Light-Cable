@@ -353,6 +353,11 @@
         position: relative;
         right: 5px;
     }
+
+    .footer-row {
+        position: relative;
+        top: 30px;
+    }
 }
 
 /*** Carousel Hero Header End ***/
