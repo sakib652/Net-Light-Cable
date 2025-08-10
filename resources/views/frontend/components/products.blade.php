@@ -173,7 +173,8 @@
             <div class="container">
                 <div class="row g-4 justify-content-center wow fadeInUp" data-wow-delay="0.2s" id="product-list">
                     @foreach ($products as $product)
-                        <div class="col-lg-3 col-md-6 product-item" data-client-id="{{ $product->client->id ?? '0' }}">
+                        <div class="col-lg-3 col-md-6 product-item"
+                            data-category-id="{{ $product->category->id ?? '0' }}">
                             <div class="products">
                                 <div class="product-top position-relative">
                                     @if ($product->discount_price && $product->discount_price < $product->price)
@@ -231,13 +232,13 @@
                     tabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
 
-                    const clientId = this.getAttribute('data-client');
+                    const categoryId = this.getAttribute('data-category');
 
                     products.forEach(product => {
-                        if (clientId === 'all') {
+                        if (categoryId === 'all') {
                             product.style.display = 'block';
                         } else {
-                            if (product.getAttribute('data-client-id') === clientId) {
+                            if (product.getAttribute('data-category-id') === categoryId) {
                                 product.style.display = 'block';
                             } else {
                                 product.style.display = 'none';
