@@ -98,7 +98,7 @@
                     <div class="about-item-content bg-white rounded p-5 h-100">
                         <h4 class="text-primary">About Our Company</h4>
                         <h1 class="display-4 mb-4">{{ $aboutUs->title }}</h1>
-                        <p style="text-align: justify;">{!! $aboutUs->description !!}</p>
+                        <p style="text-align: justify;">{{ $aboutUs->description }}</p>
                     </div>
                 </div>
                 <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
